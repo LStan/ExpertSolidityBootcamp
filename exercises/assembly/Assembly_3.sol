@@ -6,7 +6,11 @@ contract SubOverflow {
     function subtract(uint256 x, uint256 y) public pure returns (uint256) {
         // Write assembly code that handles overflows
         assembly {
-
+            if gt(y, x) {
+                return(0x80, 0x20)
+            }
+            mstore(0x80, sub(x, y))
+            return(0x80, 0x20)
         }
     }
 }

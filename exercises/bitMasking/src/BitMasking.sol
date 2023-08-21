@@ -38,6 +38,13 @@ contract BitMasking {
         assembly {
             let slot0 := sload(0)
             // start here
+            let offset := c.offset
+            let shifted := shl(mul(offset, 8), 0xf00dc0de)
+            slot0 := or(slot0, shifted)
+            offset := d.offset
+            shifted := shl(mul(offset, 8), 0xc0ffee0000d15ea5)
+            slot0 := or(slot0, shifted)
+            sstore(0, slot0)
         }
     }
 
@@ -50,6 +57,11 @@ contract BitMasking {
         assembly {
             let slot0 := sload(0)
             // start here
+            let shifted := shl(mul(30, 8), 0xce00)
+            slot0 := or(slot0, shifted)
+            shifted := shl(mul(20, 8), 0xfaceb00c)
+            slot0 := or(slot0, shifted)
+            sstore(0, slot0)
         }
     }
 
@@ -65,6 +77,14 @@ contract BitMasking {
         assembly {
             let slot0 := sload(0)
             // start here
+            let mask := shl(mul(2, 8), 0xffff)
+            mask := or(mask, shl(mul(26, 4), 0xfff))
+            mask := or(mask, shl(mul(33, 4), 0xfff))
+            mask := or(mask, shl(mul(48, 4), 0xffff))
+            slot0 := and(slot0, mask)
+            mask := shl(mul(25, 4), 0xd)
+            slot0 := or(slot0, mask)
+            sstore(0, slot0)
         }
     }
 }
